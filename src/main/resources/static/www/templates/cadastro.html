@@ -1,0 +1,115 @@
+<ion-view view-title="Cadastro">
+	<ion-content>
+		<form name="usuarioForm" novalidate="" ng-submit="cadastrar(usuarioForm, usuario)"> 
+        	
+        	<div class="row">
+	        	<label class="col-50 item item-input" ng-class="{ 'has-errors' : usuarioForm.nome.$invalid && usuarioForm.$submitted, 'no-errors' : usuarioForm.nome.$valid && usuarioForm.$submitted}">
+	            	<span class="input-label">Nome</span>
+	              	<input type="text" name="nome" ng-model="usuario.nome" required ng-minlength="3" />
+	            </label>
+	            
+	            <label class="col-50 item item-input" ng-class="{ 'has-errors' : usuarioForm.email.$invalid && usuarioForm.$submitted, 'no-errors' : usuarioForm.email.$valid && usuarioForm.$submitted}">
+	              	<span class="input-label">Email</span>
+	              	<input type="email" name="email" ng-model="usuario.email" required />
+	            </label>
+           	</div> 
+           	<div class="row">
+				<div class="col-50 error-container" ng-show="usuarioForm.nome.$error && usuarioForm.$submitted" ng-messages="usuarioForm.nome.$error">
+	            	<div ng-messages-include="error-list.html"></div>
+	            </div>
+	            
+	            <div class="error-container" ng-show="usuarioForm.email.$error && usuarioForm.$submitted" ng-messages="usuarioForm.email.$error">
+	              	<div ng-messages-include="error-list.html"></div>
+	            </div>
+           	</div>
+           
+			<div class="row">
+         		<label class="col-50 item item-input" 
+         				ng-class="{ 'has-errors' : usuarioForm.login.$invalid && usuarioForm.$submitted, 'no-errors' : usuarioForm.login.$valid && usuarioForm.$submitted}">
+	            	<span class="input-label">Login</span>
+	              	<input type="text" name="login" ng-model="usuario.login" ng-minlength="5" ng-maxlength="20" required />
+	            </label>
+	            
+	            <label class="col-50 item item-input" ng-class="{ 'has-errors' : usuarioForm.senha.$invalid && usuarioForm.$submitted, 'no-errors' : usuarioForm.senha.$valid  && usuarioForm.$submitted}">
+	              	<span class="input-label">Senha</span>
+	              	<input type="password" name="senha" ng-model="usuario.senha" ng-minlength="5" ng-maxlength="20" required>
+	            </label>
+	      	</div>
+	      	<div class="row">    
+	      		<div class="col-50 error-container" ng-show="usuarioForm.login.$error && usuarioForm.$submitted" ng-messages="usuarioForm.login.$error">
+	              <div ng-messages-include="error-list.html"></div>
+	            </div>
+	               
+	            <div class="error-container last-error-container" ng-show="usuarioForm.senha.$error && usuarioForm.$submitted" ng-messages="usuarioForm.senha.$error">
+	                <div ng-messages-include="error-list.html"></div> 
+	            </div>
+            </div>
+            
+            <div class="row">
+            	<label class="col-50 item item-input" ng-class="{ 'has-errors' : usuarioForm.empresa.$invalid && usuarioForm.$submitted, 'no-errors' : usuarioForm.empresa.$valid && usuarioForm.$submitted}">
+	              	<span class="input-label">Empresa</span>
+	              	<input type="text" name="empresa" ng-model="usuario.empresa" ng-minlength="5" ng-maxlength="20" required />
+            	</label>
+            
+	            <label class="col-50 item item-input" ng-class="{ 'has-errors' : usuarioForm.local.$invalid && usuarioForm.$submitted, 'no-errors' : usuarioForm.local.$valid && usuarioForm.$submitted}">
+	              <span class="input-label">Local</span>
+	              <input type="text" name="local" ng-model="usuario.local" ng-minlength="5" ng-maxlength="20" required />
+	            </label>
+	        </div>
+	        <div class="row">
+            	<div class="col-50 error-container" ng-show="usuarioForm.empresa.$error && usuarioForm.$submitted" ng-messages="usuarioForm.empresa.$error">
+	              <div ng-messages-include="error-list.html"></div>
+	            </div>
+            	
+            	<div class="col-50 error-container" ng-show="usuarioForm.local.$error && usuarioForm.$submitted" ng-messages="usuarioForm.local.$error">
+	              <div ng-messages-include="error-list.html"></div>
+	            </div>
+            </div>
+            
+            <div class="row">
+	            <label class="col-50 item item-input" ng-class="{ 'has-errors' : usuarioForm.telefone.$invalid && usuarioForm.$submitted, 'no-errors' : usuarioForm.telefone.$valid && usuarioForm.$submitted}">
+	              <span class="input-label">Telefone</span>
+	              <input type="text" name="telefone" ng-model="usuario.telefone" ng-minlength="10" ng-maxlength="20" required />
+	            </label>
+	            
+	            <label class="col-50 item item-input item-select" ng-class="{ 'has-errors' : usuarioForm.perfil.$invalid && usuarioForm.$submitted, 'no-errors' : usuarioForm.perfil.$valid && usuarioForm.$submitted}">
+	              <span class="input-label">Perfil</span>
+	              <select ng-model="usuario.perfil" required="required"> 
+	              	<option value="cliente" selected>Cliente</option>
+	              	<option value="tecnico">Técnico</option>
+	              	<option value="empresa">Empresa</option>
+	              </select>
+	            </label>
+          	</div>     
+          
+          	<div class="row">
+            	<div class="col-50 error-container" ng-show="usuarioForm.telefone.$error && usuarioForm.$submitted" ng-messages="usuarioForm.telefone.$error">
+	              <div ng-messages-include="error-list.html"></div>
+	            </div> 
+	            
+	            <div class="col-50 error-container" ng-show="usuarioForm.perfil.$error && usuarioForm.$submitted" ng-messages="usuarioForm.perfil.$error">
+	              <div ng-messages-include="error-list.html"></div>
+	            </div>
+            </div>
+           
+          	<button class="button button-block button-positive" type="submit">
+            	Salvar
+          	</button>
+        </form>   
+		    
+		<script id="error-list.html" type="text/ng-template">  
+    		<div class="error" ng-message="required">
+    		</div>
+
+    		<div class="error" ng-message="minlength">
+    		</div>
+
+    		<div class="error" ng-message="maxlength">
+    		</div>
+
+			<div class="error" ng-message="email">
+    		</div>
+  		</script> 
+	
+	</ion-content>
+</ion-view>

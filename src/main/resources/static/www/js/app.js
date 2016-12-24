@@ -3,55 +3,72 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+// 'starter.controllers' is found in controllers.js
+angular.module('starter', ['ionic', 'starter.controllers', 'ngMessages'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+    if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
       cordova.plugins.Keyboard.disableScroll(true);
+
     }
-    if(window.StatusBar) {
+    if (window.StatusBar) {
+      // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
   });
 })
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http) {
+.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
 
-	$scope.autenticar = function (usuario, senha) {
-		$http.get("http://localhost:9090/cliente/autenticar?usuario="+ usuario + "&senha=" + senha, '').success(function (cliente) {
-			$scope.cliente = cliente;
-			if(cliente)
-				$scope.invalido = false;
-			else
-				$scope.invalido = true;
-		});
-	};
-	
-	$scope.salvarChamado = function (chamado) {
-		chamado.cliente = $scope.cliente;
-		$http.post("http://localhost:9090/chamado/novo", chamado).success(function (chamado) {
-			$scope.chamado = "chamado salvo com sucesso";
-			$scope.desejo = 'tabela';
-		});
-	};
-	
-	$scope.limpar = function () {
-		$scope.cliente = null;
-		$scope.desejo = null;
-	};
-	
-	$scope.setDesejo = function(desejo) {
-		$scope.desejo = desejo;
-	}
-	
-})
+    .state('app', {
+    url: '/app',
+    abstract: true,
+    templateUrl: 'templates/menu.html',
+    controller: 'AppCtrl'
+  })
 
+  .state('app.cadastro', {
+    url: '/cadastro',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/cadastro.html',
+        controller: 'CadastroCtrl'
+      }
+    }
+  })
 
+  .state('app.browse', {
+      url: '/browse',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/browse.html'
+        }
+      }
+    })
+    .state('app.playlists', {
+      url: '/playlists',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/playlists.html',
+          controller: 'PlaylistsCtrl'
+        }
+      }
+    })
+
+  .state('app.single', {
+    url: '/playlists/:playlistId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/playlist.html',
+        controller: 'PlaylistCtrl'
+      }
+    }
+  });
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/app/playlists');
+});

@@ -1,4 +1,4 @@
-package central.cliente;
+package central.usuario;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -10,29 +10,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/cliente")
-public class ClienteController {
+@RequestMapping("/usuario")
+public class UsuarioController {
 
 	@Autowired
-	private ClienteService clienteService;
+	private UsuarioService usuarioService;
 
 	@RequestMapping(value = "/consultar", method = GET)
-	public Cliente consultar(@RequestParam Integer codigo) {
-		return clienteService.obterCliente(codigo);
+	public Usuario consultar(@RequestParam Long codigo) {
+		return usuarioService.obterUsuario(codigo);
 	}
 
 	@RequestMapping("/listar")
-	public Iterable<Cliente> listar() {
-		return clienteService.obterTodos();
+	public Iterable<Usuario> listar() {
+		return usuarioService.obterTodos();
 	}
 
 	@RequestMapping(value = "/novo", method = POST)
-	public Cliente novo(@RequestBody Cliente cliente) {
-		return clienteService.registrarCliente(cliente);
+	public Usuario novo(@RequestBody Usuario usuario) {
+		return usuarioService.registrarUsuario(usuario);
 	}
 
 	@RequestMapping(value = "/autenticar", method = GET)
-	public Cliente autenticar(@RequestParam String usuario, @RequestParam String senha) {
-		return clienteService.fazerLogin(usuario, senha);
+	public Usuario autenticar(@RequestParam String login, @RequestParam String senha) {
+		return usuarioService.fazerLogin(login, senha);
 	}
 }

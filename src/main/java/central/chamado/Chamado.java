@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import central.cliente.Cliente;
+import central.usuario.Usuario;
 
 @Entity
 public class Chamado {
@@ -22,10 +22,10 @@ public class Chamado {
 	private Integer codigo;
 
 	@ManyToOne
-	private Cliente cliente;
+	private Usuario usuario;
 
 	@ManyToOne
-	private Cliente tecnico;
+	private Usuario tecnico;
 
 	@Column(name = "TITULO")
 	private String titulo;
@@ -62,19 +62,19 @@ public class Chamado {
 		this.codigo = codigo;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public Usuario getCliente() {
+		return usuario;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setCliente(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public Cliente getTecnico() {
+	public Usuario getTecnico() {
 		return tecnico;
 	}
 
-	public void setTecnico(Cliente tecnico) {
+	public void setTecnico(Usuario tecnico) {
 		this.tecnico = tecnico;
 	}
 
