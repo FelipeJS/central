@@ -41,15 +41,14 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('ServicosCtrl', function($scope) {
+  $scope.servicos = [];
+  
+  $scope.pesquisar = function(usuario) {
+		$http.get("http://localhost:9090/chamado/listar", usuario).success(function (resultadoDoResponse) {
+			$scope.servicos = resultadoDoResponse;
+		});
+	};
 })
 
 .controller('CadastroCtrl', function($scope, $http) {
@@ -67,5 +66,5 @@ angular.module('starter.controllers', [])
 	};
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('ServicoCtrl', function($scope, $stateParams) {
 });
